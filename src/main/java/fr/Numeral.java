@@ -5,9 +5,9 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.repeat;
 
-class Number {
-    private int number;
-    private StringBuilder numeral = new StringBuilder();
+class Numeral {
+    private final int number;
+    private final StringBuilder numeral = new StringBuilder();
 
     private Map<Integer, String> romanSymbolMap = new HashMap<Integer, String>() {{
         put(1, "I");
@@ -15,12 +15,12 @@ class Number {
         put(10, "X");
     }};
 
-    Number(int number) {
+    Numeral(int number) {
         this.number = number;
         buildNumeral();
     }
 
-    String numeral() {
+    String print() {
         return numeral.toString();
     }
 
@@ -30,7 +30,6 @@ class Number {
         remainder = getRemainderAndUpdateNumeralForValue(remainder, 10);
         remainder = getRemainderAndUpdateNumeralForValue(remainder, 5);
         getRemainderAndUpdateNumeralForValue(remainder, 1);
-
     }
 
     private int getRemainderAndUpdateNumeralForValue(int remainder, int value) {
@@ -42,7 +41,7 @@ class Number {
         }
 
         if (remainder != 0 && remainder % value == value - 1) {
-            this.numeral.append("I")
+            this.numeral.append(romanSymbolMap.get(1))
                     .append(romanSymbolMap.get(value));
             remainder -= value - 1;
         }
