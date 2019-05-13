@@ -7,6 +7,7 @@ import static org.apache.commons.lang3.StringUtils.repeat;
 
 class Number {
     private int number;
+    private StringBuilder numeral = new StringBuilder();
 
     private Map<Integer, String> romanSymbolMap = new HashMap<Integer, String>() {{
         put(1, "I");
@@ -16,31 +17,32 @@ class Number {
 
     Number(int number) {
         this.number = number;
+        buildNumeral();
     }
 
     String numeral() {
-        StringBuilder numeral = new StringBuilder();
-        int remainder = this.number;
-
-        remainder = getRemainderAndUpdateNumeralForValue(numeral, remainder, 10);
-
-        remainder = getRemainderAndUpdateNumeralForValue(numeral, remainder, 5);
-
-        getRemainderAndUpdateNumeralForValue(numeral, remainder, 1);
-
         return numeral.toString();
     }
 
-    private int getRemainderAndUpdateNumeralForValue(StringBuilder numeral, int remainder, int value) {
+    private void buildNumeral() {
+        int remainder = this.number;
+
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, 10);
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5);
+        getRemainderAndUpdateNumeralForValue(remainder, 1);
+
+    }
+
+    private int getRemainderAndUpdateNumeralForValue(int remainder, int value) {
         int times = remainder / value;
 
         if (times > 0) {
-            numeral.append(repeat(romanSymbolMap.get(value), times));
+            this.numeral.append(repeat(romanSymbolMap.get(value), times));
             remainder -= value * times;
         }
 
         if (remainder != 0 && remainder % value == value - 1) {
-            numeral.append("I")
+            this.numeral.append("I")
                     .append(romanSymbolMap.get(value));
             remainder -= value - 1;
         }
