@@ -26,7 +26,7 @@ public class NumberTest {
     }
 
     @Test
-    @Parameters({"6,VI", "7,VII", "8,VIII", "9,VIIII"})
+    @Parameters({"6,VI", "7,VII", "8,VIII", "9,IX"})
     public void for_the_numbers_6_to_9_V_and_I_symbols_in_multiples_are_used(int numeric, String numeral) {
         Number number = new Number(numeric);
 

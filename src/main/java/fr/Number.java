@@ -12,12 +12,17 @@ class Number {
     String numeral() {
         StringBuilder numeral = new StringBuilder();
         int remainder = this.number;
+        if (this.number > 8) {
+            numeral.append("IX");
+            remainder -= 9;
+        }
 
-        if (this.number / 5 > 0) {
+        if (remainder / 5 > 0) {
             numeral.append("V");
             remainder -= 5;
         }
-        if (this.number < 5 && this.number % 5 == 4) {
+
+        if (remainder < 5 && remainder % 5 == 4) {
             numeral.append("IV");
             remainder -= 4;
         }
