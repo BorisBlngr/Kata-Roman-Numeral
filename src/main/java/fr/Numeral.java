@@ -1,7 +1,9 @@
 package fr;
 
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.repeat;
 
@@ -9,40 +11,39 @@ class Numeral {
     private final int number;
     private final StringBuilder numeral = new StringBuilder();
 
-    private Map<Integer, String> romanSymbolMap = new HashMap<Integer, String>() {{
-        put(1, "I");
-        put(5, "V");
-        put(10, "X");
-    }};
-
     Numeral(int number) {
         this.number = number;
-        buildNumeral();
     }
 
-    String print() {
+    String print(Map<Integer, String> numericToNumeralMap) {
+        buildNumeral(numericToNumeralMap);
         return numeral.toString();
     }
 
-    private void buildNumeral() {
+    private void buildNumeral(Map<Integer, String> numericToNumeralMap) {
         int remainder = this.number;
 
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 10);
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5);
-        getRemainderAndUpdateNumeralForValue(remainder, 1);
+        List<Integer> numbers = numericToNumeralMap.keySet()
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+
+        for (int number : numbers) {
+            remainder = getRemainderAndUpdateNumeralForValue(numericToNumeralMap, remainder, number);
+        }
     }
 
-    private int getRemainderAndUpdateNumeralForValue(int remainder, int value) {
+    private int getRemainderAndUpdateNumeralForValue(Map<Integer, String> numericToNumeralMap, int remainder, int value) {
         int times = remainder / value;
 
         if (times > 0) {
-            this.numeral.append(repeat(romanSymbolMap.get(value), times));
+            this.numeral.append(repeat(numericToNumeralMap.get(value), times));
             remainder -= value * times;
         }
 
         if (remainder != 0 && remainder % value == value - 1) {
-            this.numeral.append(romanSymbolMap.get(1))
-                    .append(romanSymbolMap.get(value));
+            this.numeral.append(numericToNumeralMap.get(1))
+                    .append(numericToNumeralMap.get(value));
             remainder -= value - 1;
         }
         return remainder;
