@@ -17,6 +17,10 @@ class Number {
             numeral.append("V");
             remainder -= 5;
         }
+        if (this.number < 5 && this.number % 5 == 4) {
+            numeral.append("IV");
+            remainder -= 4;
+        }
         numeral.append(repeat("I", remainder));
 
         return numeral.toString();

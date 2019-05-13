@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NumberTest {
 
     @Test
-    @Parameters({"1,I", "2,II", "3,III", "4,IIII"})
+    @Parameters({"1,I", "2,II", "3,III", "4,IV"})
     public void for_the_numbers_1_to_4_I_symbol_in_multiples_is_used(int numeric, String numeral) {
         Number number = new Number(numeric);
 
