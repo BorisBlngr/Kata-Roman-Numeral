@@ -32,4 +32,12 @@ public class NumberTest {
 
         assertThat(number.numeral()).isEqualTo(numeral);
     }
+
+    @Test
+    @Parameters({"10,X", "20,XX", "30,XXX"})
+    public void for_the_numbers_10_to_30_X_symbol_in_multiples_is_used(int numeric, String numeral) {
+        Number number = new Number(numeric);
+
+        assertThat(number.numeral()).isEqualTo(numeral);
+    }
 }

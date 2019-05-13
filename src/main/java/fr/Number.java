@@ -12,6 +12,14 @@ class Number {
     String numeral() {
         StringBuilder numeral = new StringBuilder();
         int remainder = this.number;
+
+        if (remainder / 10 > 0) {
+            int times = remainder / 10;
+
+            numeral.append(repeat("X", times));
+            remainder -= 10 * times;
+        }
+
         if (remainder % 10 == 10 - 1) {
             numeral.append("I" + "X");
             remainder -= 10 - 1;
