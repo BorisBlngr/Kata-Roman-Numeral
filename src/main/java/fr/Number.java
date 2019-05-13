@@ -10,6 +10,10 @@ class Number {
     }
 
     String numeral() {
+        if (this.number > 5) {
+            return "V" + repeat("I", this.number - 5);
+        }
+
         if (this.number == 5) {
             return "V";
         }
