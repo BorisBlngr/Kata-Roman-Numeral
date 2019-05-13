@@ -10,13 +10,15 @@ class Number {
     }
 
     String numeral() {
-        if (this.number > 5) {
-            return "V" + repeat("I", this.number - 5);
-        }
+        StringBuilder numeral = new StringBuilder();
+        int remainder = this.number;
 
-        if (this.number == 5) {
-            return "V";
+        if (this.number / 5 > 0) {
+            numeral.append("V");
+            remainder -= 5;
         }
-        return repeat("I", this.number);
+        numeral.append(repeat("I", remainder));
+
+        return numeral.toString();
     }
 }
