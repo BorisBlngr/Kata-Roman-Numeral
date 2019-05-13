@@ -12,9 +12,9 @@ class Number {
     String numeral() {
         StringBuilder numeral = new StringBuilder();
         int remainder = this.number;
-        if (this.number > 8) {
-            numeral.append("IX");
-            remainder -= 9;
+        if (remainder % 10 == 10 - 1) {
+            numeral.append("I" + "X");
+            remainder -= 10 - 1;
         }
 
         if (remainder / 5 > 0) {
@@ -22,9 +22,9 @@ class Number {
             remainder -= 5;
         }
 
-        if (remainder < 5 && remainder % 5 == 4) {
-            numeral.append("IV");
-            remainder -= 4;
+        if (remainder % 5 == 5 - 1) {
+            numeral.append("I" + "V");
+            remainder -= 5 - 1;
         }
         numeral.append(repeat("I", remainder));
 
