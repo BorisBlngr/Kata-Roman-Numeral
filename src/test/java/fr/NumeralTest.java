@@ -5,26 +5,17 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
 public class NumeralTest {
-
-    private Map<Integer, String> romanSymbolMap = new HashMap<Integer, String>() {{
-        put(1, "I");
-        put(5, "V");
-        put(10, "X");
-    }};
 
     @Test
     @Parameters({"1,I", "2,II", "3,III", "4,IV"})
     public void for_the_numbers_1_to_4_I_symbol_in_multiples_is_used(int numeric, String numeralExpcted) {
         Numeral number = new Numeral(numeric);
 
-        String result = number.print(romanSymbolMap);
+        String result = number.print();
 
         assertThat(result).isEqualTo(numeralExpcted);
     }
@@ -33,7 +24,7 @@ public class NumeralTest {
     public void _5_numeral_should_return_V_symbol() {
         Numeral five = new Numeral(5);
 
-        String result = five.print(romanSymbolMap);
+        String result = five.print();
 
         assertThat(result).isEqualTo("V");
     }
@@ -43,7 +34,7 @@ public class NumeralTest {
     public void for_the_numbers_6_to_9_V_and_I_symbols_in_multiples_are_used(int numeric, String numeralExpected) {
         Numeral number = new Numeral(numeric);
 
-        String result = number.print(romanSymbolMap);
+        String result = number.print();
 
         assertThat(result).isEqualTo(numeralExpected);
     }
@@ -53,8 +44,17 @@ public class NumeralTest {
     public void for_the_numbers_10_to_30_X_symbol_in_multiples_is_used(int numeric, String numeralExpected) {
         Numeral number = new Numeral(numeric);
 
-        String result = number.print(romanSymbolMap);
+        String result = number.print();
 
         assertThat(result).isEqualTo(numeralExpected);
+    }
+
+    @Test
+    public void _40_numeral_should_return_XL_symbol() {
+        Numeral forty = new Numeral(40);
+
+        String result = forty.print();
+
+        assertThat(result).isEqualTo("XL");
     }
 }
