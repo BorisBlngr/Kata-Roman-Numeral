@@ -28,7 +28,9 @@ class Numeral {
     }
 
     private void buildNumeral() {
-        for (int index = 3; index > 0; index--) {
+        int times = romanSymbolMap.size() > 3 ? romanSymbolMap.size() / 3 + 2 : romanSymbolMap.size();
+
+        for (int index = times; index > 0; index--) {
             updateRemainderAndNumeralForValue(tenPower(index), tenPower(index - 1));
             updateRemainderAndNumeralForValue(5 * tenPower(index - 1), tenPower(index - 1));
         }
