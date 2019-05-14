@@ -12,6 +12,8 @@ class Numeral {
         put(10, "X");
         put(50, "L");
         put(100, "C");
+        put(500, "D");
+        put(1000, "M");
     }};
     private int remainder;
     private final StringBuilder numeral = new StringBuilder();
@@ -21,8 +23,12 @@ class Numeral {
         this.buildNumeral();
     }
 
+    String print() {
+        return numeral.toString();
+    }
+
     private void buildNumeral() {
-        for (int index = 2; index > 0; index--) {
+        for (int index = 3; index > 0; index--) {
             updateRemainderAndNumeralForValue(tenPower(index), tenPower(index - 1));
             updateRemainderAndNumeralForValue(5 * tenPower(index - 1), tenPower(index - 1));
         }
@@ -31,10 +37,6 @@ class Numeral {
 
     private int tenPower(int power) {
         return (int) Math.pow(10, power);
-    }
-
-    String print() {
-        return numeral.toString();
     }
 
     private void updateRemainderAndNumeralForValue(int value, int previousValue) {

@@ -75,4 +75,15 @@ public class NumeralTest {
 
         assertThat(result).isEqualTo("C");
     }
+
+
+    @Test
+    @Parameters({"200,CC", "300,CCC", "400,CD", "500,D", "600,DC", "700,DCC", "800,DCCC", "900,CM"})
+    public void for_the_numbers_200_to__900_C_D_and_M_symbols_are_used(int numeric, String numeralExpected) {
+        Numeral number = new Numeral(numeric);
+
+        String result = number.print();
+
+        assertThat(result).isEqualTo(numeralExpected);
+    }
 }
