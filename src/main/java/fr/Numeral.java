@@ -13,24 +13,20 @@ class Numeral {
         put(50, "L");
         put(100, "C");
     }};
-    private final int number;
+    private int remainder;
     private final StringBuilder numeral = new StringBuilder();
 
     Numeral(int number) {
-        this.number = number;
+        this.remainder = number;
         this.buildNumeral();
     }
 
     private void buildNumeral() {
-        int remainder = this.number;
-
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, tenPower(2), tenPower(1));
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5 * tenPower(1), tenPower(1));
-
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, tenPower(1), tenPower(0));
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5 * tenPower(0), tenPower(0));
-
-        getRemainderAndUpdateNumeralForValue(remainder, 1, 1);
+        for (int index = 2; index > 0; index--) {
+            updateRemainderAndNumeralForValue(tenPower(index), tenPower(index - 1));
+            updateRemainderAndNumeralForValue(5 * tenPower(index - 1), tenPower(index - 1));
+        }
+        updateRemainderAndNumeralForValue(1, 1);
     }
 
     private int tenPower(int power) {
@@ -41,19 +37,22 @@ class Numeral {
         return numeral.toString();
     }
 
-    private int getRemainderAndUpdateNumeralForValue(int remainder, int value, int previousValue) {
+    private void updateRemainderAndNumeralForValue(int value, int previousValue) {
         int times = remainder / value;
 
         if (times > 0) {
             updateNumeral(repeat(romanSymbolMap.get(value), times));
-            remainder -= value * times;
+            subtractRemainderBy(value * times);
         }
 
         if (remainder != 0 && remainder % value == value - previousValue) {
             updateNumeral(romanSymbolMap.get(previousValue) + romanSymbolMap.get(value));
-            remainder -= value - previousValue;
+            subtractRemainderBy(value - previousValue);
         }
-        return remainder;
+    }
+
+    private void subtractRemainderBy(int value) {
+        remainder -= value;
     }
 
     private void updateNumeral(String string) {
