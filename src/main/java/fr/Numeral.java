@@ -18,38 +18,45 @@ class Numeral {
 
     Numeral(int number) {
         this.number = number;
-    }
-
-    String print() {
-        buildNumeral();
-        return numeral.toString();
+        this.buildNumeral();
     }
 
     private void buildNumeral() {
         int remainder = this.number;
 
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 100, 10);
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 50, 10);
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, tenPower(2), tenPower(1));
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5 * tenPower(1), tenPower(1));
 
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 10, 1);
-        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5, 1);
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, tenPower(1), tenPower(0));
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, 5 * tenPower(0), tenPower(0));
 
         getRemainderAndUpdateNumeralForValue(remainder, 1, 1);
+    }
+
+    private int tenPower(int power) {
+        return (int) Math.pow(10, power);
+    }
+
+    String print() {
+        return numeral.toString();
     }
 
     private int getRemainderAndUpdateNumeralForValue(int remainder, int value, int previousValue) {
         int times = remainder / value;
 
         if (times > 0) {
-            this.numeral.append(repeat(romanSymbolMap.get(value), times));
+            updateNumeral(repeat(romanSymbolMap.get(value), times));
             remainder -= value * times;
         }
 
         if (remainder != 0 && remainder % value == value - previousValue) {
-            this.numeral.append(romanSymbolMap.get(previousValue))
-                    .append(romanSymbolMap.get(value));
+            updateNumeral(romanSymbolMap.get(previousValue) + romanSymbolMap.get(value));
             remainder -= value - previousValue;
         }
         return remainder;
+    }
+
+    private void updateNumeral(String string) {
+        this.numeral.append(string);
     }
 }
