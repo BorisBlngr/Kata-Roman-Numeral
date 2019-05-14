@@ -5,7 +5,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.repeat;
 
-class Numeral {
+class NumeralFactory {
     private Map<Integer, String> romanSymbolMap = new HashMap<Integer, String>() {{
         put(1, "I");
         put(5, "V");
@@ -18,12 +18,18 @@ class Numeral {
     private int remainder;
     private final StringBuilder numeral = new StringBuilder();
 
-    Numeral(int number) {
-        this.remainder = number;
-        this.buildNumeral();
+    NumeralFactory() {
     }
 
-    String print() {
+    NumeralFactory(Map<Integer, String> romanSymbolMap) {
+        this.romanSymbolMap = romanSymbolMap;
+    }
+
+    String of(int number) {
+        remainder = number;
+
+        buildNumeral();
+
         return numeral.toString();
     }
 
