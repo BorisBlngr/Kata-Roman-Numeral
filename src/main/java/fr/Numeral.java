@@ -23,14 +23,18 @@ class Numeral {
     private void buildNumeral(Map<Integer, String> numericToNumeralMap) {
         int remainder = this.number;
 
-        List<Integer> numbers = numericToNumeralMap.keySet()
-                .stream()
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
+        List<Integer> numbers = getReverseSortedKey(numericToNumeralMap);
 
         for (int number : numbers) {
             remainder = getRemainderAndUpdateNumeralForValue(numericToNumeralMap, remainder, number);
         }
+    }
+
+    private List<Integer> getReverseSortedKey(Map<Integer, String> numericToNumeralMap) {
+        return numericToNumeralMap.keySet()
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
     }
 
     private int getRemainderAndUpdateNumeralForValue(Map<Integer, String> numericToNumeralMap, int remainder, int value) {
