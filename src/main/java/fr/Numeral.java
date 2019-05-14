@@ -14,6 +14,7 @@ class Numeral {
         put(5, "V");
         put(10, "X");
         put(50, "L");
+        put(100, "C");
     }};
     private final int number;
     private final StringBuilder numeral = new StringBuilder();
@@ -30,15 +31,13 @@ class Numeral {
     private void buildNumeral() {
         int remainder = this.number;
 
-        List<Integer> numbers = getReverseSortedKey();
-
+        remainder = getRemainderAndUpdateNumeralForValue(remainder, 100, 10);
         remainder = getRemainderAndUpdateNumeralForValue(remainder, 50, 10);
 
         remainder = getRemainderAndUpdateNumeralForValue(remainder, 10, 1);
         remainder = getRemainderAndUpdateNumeralForValue(remainder, 5, 1);
 
         getRemainderAndUpdateNumeralForValue(remainder, 1, 1);
-
     }
 
     private List<Integer> getReverseSortedKey() {

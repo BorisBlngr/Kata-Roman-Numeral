@@ -57,4 +57,22 @@ public class NumeralTest {
 
         assertThat(result).isEqualTo("XL");
     }
+
+    @Test
+    public void _90_numeral_should_return_XC_symbol() {
+        Numeral forty = new Numeral(90);
+
+        String result = forty.print();
+
+        assertThat(result).isEqualTo("XC");
+    }
+
+    @Test
+    public void _100_numeral_should_return_C_symbol() {
+        Numeral forty = new Numeral(100);
+
+        String result = forty.print();
+
+        assertThat(result).isEqualTo("C");
+    }
 }
