@@ -1,10 +1,7 @@
 package fr;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.repeat;
 
@@ -38,13 +35,6 @@ class Numeral {
         remainder = getRemainderAndUpdateNumeralForValue(remainder, 5, 1);
 
         getRemainderAndUpdateNumeralForValue(remainder, 1, 1);
-    }
-
-    private List<Integer> getReverseSortedKey() {
-        return romanSymbolMap.keySet()
-                .stream()
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
     }
 
     private int getRemainderAndUpdateNumeralForValue(int remainder, int value, int previousValue) {
