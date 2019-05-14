@@ -86,4 +86,15 @@ public class NumeralFactoryTest {
 
         assertThat(result).isEqualTo(numeralExpected);
     }
+
+    @Test
+    @Parameters({"4,IV", "9,IX", "29,XXIX", "80,LXXX", "294,CCXCIV", "2019,MMXIX", "800,DCCC", "900,CM"})
+    public void acceptance(int numeric, String numeralExpected) {
+        NumeralFactory numeralFactory = new NumeralFactory();
+
+        String result = numeralFactory.of(numeric);
+
+        assertThat(result).isEqualTo(numeralExpected);
+    }
+
 }

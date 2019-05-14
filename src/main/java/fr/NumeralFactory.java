@@ -55,7 +55,7 @@ class NumeralFactory {
             subtractRemainderBy(value * times);
         }
 
-        if (remainder != 0 && remainder % value == value - previousValue) {
+        if (remainder != 0 && remainder % value >= value - previousValue) {
             updateNumeral(romanSymbolMap.get(previousValue) + romanSymbolMap.get(value));
             subtractRemainderBy(value - previousValue);
         }
